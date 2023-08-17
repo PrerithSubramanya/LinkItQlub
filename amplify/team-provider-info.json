@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cardlinker-dev-154519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::132248825767:role/amplify-cardlinker-dev-154519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::132248825767:role/amplify-cardlinker-dev-154519-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-cardlinker-dev-154519-deployment",
+      "UnauthRoleName": "amplify-cardlinker-dev-154519-unauthRole",
+      "StackName": "amplify-cardlinker-dev-154519",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:132248825767:stack/amplify-cardlinker-dev-154519/43b27e70-3cc1-11ee-b3b3-0621aa413fd0",
+      "AmplifyAppId": "d1xjiyvyz4ies2"
+    }
+  }
+}
