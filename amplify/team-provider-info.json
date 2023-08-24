@@ -10,6 +10,20 @@
       "StackName": "amplify-cardlinker-dev-154519",
       "StackId": "arn:aws:cloudformation:ap-southeast-2:132248825767:stack/amplify-cardlinker-dev-154519/43b27e70-3cc1-11ee-b3b3-0621aa413fd0",
       "AmplifyAppId": "d1xjiyvyz4ies2"
+    },
+    "categories": {
+      "function": {
+        "cardlinker0e495e87": {
+          "redisHost": "funky-foal-44157.upstash.io",
+          "redisPort": "44157",
+          "redisPassword": "bbe5834f005041aaa50f5dd7223d6589",
+          "deploymentBucketName": "amplify-cardlinker-dev-154519-deployment",
+          "s3Key": "amplify-builds/cardlinker0e495e87-36546e2b6a73772f6a72-build.zip"
+        }
+      },
+      "api": {
+        "api66a8ee43": {}
+      }
     }
   }
 }

@@ -1,1 +1,68 @@
-{}
+{
+  "api": {
+    "api66a8ee43": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "cardlinker0e495e87"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "cardlinker0e495e87": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_cardlinker0e495e87_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cardlinker0e495e87"
+        }
+      ]
+    },
+    "AMPLIFY_function_cardlinker0e495e87_redisHost": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cardlinker0e495e87"
+        }
+      ]
+    },
+    "AMPLIFY_function_cardlinker0e495e87_redisPassword": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cardlinker0e495e87"
+        }
+      ]
+    },
+    "AMPLIFY_function_cardlinker0e495e87_redisPort": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cardlinker0e495e87"
+        }
+      ]
+    },
+    "AMPLIFY_function_cardlinker0e495e87_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cardlinker0e495e87"
+        }
+      ]
+    }
+  }
+}
