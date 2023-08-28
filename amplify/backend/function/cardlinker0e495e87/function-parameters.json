@@ -1,0 +1,17 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "redisHost",
+      "environmentVariableName": "RedisHost"
+    },
+    {
+      "cloudFormationParameterName": "redisPort",
+      "environmentVariableName": "RedisPort"
+    },
+    {
+      "cloudFormationParameterName": "redisPassword",
+      "environmentVariableName": "RedisPassword"
+    }
+  ]
+}
