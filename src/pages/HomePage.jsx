@@ -19,7 +19,23 @@ const Home = () => {
   const [restaurant, setRestaurant] = useState(null);
   const [tableLink, setTableLink] = useState(null);
   const [linkSuccessful, setLinkSuccessful] = useState(false);
+  const [showKeypad, setShowKeypad] = useState(false);
 
+
+  useEffect(() => {
+    const savedState = sessionStorage.getItem("toggleState");
+    if (savedState) {
+      setShowKeypad(savedState === "true");
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("toggleState", showKeypad);
+  }, [showKeypad]);
+
+  const handleKeypadInput = (num) => {
+    setSearch(prevSearch => prevSearch + num);
+  };
 
   useEffect(() => {
     const getTables = async () => {
@@ -81,6 +97,14 @@ const Home = () => {
     setSelectedCard(null);
   };
 
+  const handleBackspace = () => {
+    setSearch(search.slice(0, -1));
+  };
+  
+  const handleClear = () => {
+    setSearch("");
+  };
+
 
   return (
     <div className="login-page">
@@ -92,6 +116,10 @@ const Home = () => {
                 Welcome back, <span className="user-email">{user?.email || "User"}</span>!
         </div>
         <div className={`search-card ${isLeaving ? "leaving" : ""}`}>
+        <label className="switch">
+          <input type="checkbox" onChange={() => setShowKeypad(!showKeypad)} />
+          <span className="slider"></span>
+        </label>
         {linkSuccessful ? (
           <div className="link-completed-card">
             <MdClose className="close-icon" onClick={handleCloseLinkSuccess} />
@@ -132,17 +160,34 @@ const Home = () => {
               value={search} 
               onChange={handleSearch} 
             />
-            <ul className={`table-list ${searchActive ? "active" : ""}`}>
-              {tables.filter(table => table.name.toLowerCase().includes(search.toLowerCase())).map((table, index) => (
+            <ul className={`table-list ${searchActive ? "active" : ""} ${showKeypad ? "shrink" : ""}`}>
+            {tables
+              .filter(table => table.name.toLowerCase().includes(search.toLowerCase()))
+              .sort((a, b) => {
+              if(a.name === `table_${search}`) return -1; // if a is an exact match, it should come first
+              if(b.name === `table_${search}`) return 1;  // if b is an exact match, it should come first
+              return a.name.localeCompare(b.name); // otherwise, sort in ascending order based on table names
+              })
+              .map((table, index) => (
               <li key={table.id} style={{ '--i': index + 1 }} onClick={() => handleTableClick(table)}>{table.name}</li>  
-              ))}
-              {tables.length === 0 && 
+              ))
+            }
+            {tables.length === 0 && 
               <div className="empty-tables">
-                <img src={not_found} alt="Robot" className="robot-image" />
-                <p className="no-tables-text">Uh Oh! Table Not Found</p>
+              <img src={not_found} alt="Robot" className="robot-image" />
+              <p className="no-tables-text">Uh Oh! Table Not Found</p>
               </div>
-              }
+             }    
             </ul>
+            {showKeypad && (
+              <div className="numeric-keypad">
+              {[9, 8, 7, 6, 5, 4, 3, 2, 1, 0].map(num => (
+              <button key={num} className="keypad-btn" onClick={() => handleKeypadInput(num)}>{num}</button>
+              ))}
+              <button className="keypad-btn" onClick={handleBackspace}>←</button>
+              <button className="keypad-btn" onClick={handleClear}>C</button>
+              </div>
+            )}
             </>
           )}
         </div>

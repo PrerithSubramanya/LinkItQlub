@@ -169,6 +169,7 @@ body {
   font-size: 16px;
   transition: border-color 0.3s ease;
   margin-bottom: 20px;
+  margin-top: 30px
 }
 
 .search-input:focus {
@@ -414,4 +415,107 @@ body {
   width: 200px; /* Adjust as needed */
   height: 200px; /* Adjust as needed */
 }
+
+/* Toggle Switch styles */
+.switch {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+  width: 50px; /* Reduced the width for smaller slider */
+  height: 28px; /* Reduced the height for smaller slider */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+  width: 50px; /* Adjusted width */
+  height: 28px; /* Adjusted height */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  height: 22px; /* Adjusted height */
+  width: 22px; /* Adjusted width */
+  left: 3px; /* Adjusted left positioning */
+}
+
+input:checked + .slider {
+  background-color: #7F03D4;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px); /* Adjusted translation value */
+}
+
+.keypad-btn {
+  width: 30%; 
+  padding: 10px 0;
+  background-color: transparent; /* No fill color */
+  color: #7F03D4;
+  font-size: 16px;
+  border: 2px solid #7F03D4; /* Circular border */
+  border-radius: 80%; /* Makes it circular */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  flex-basis: calc(33.33% - 10px); /* Ensures 3 buttons per row with spacing */
+}
+
+.keypad-btn:hover {
+  background-color: #7F03D4;
+  color: white;
+}
+
+.table-list.shrink {
+  /* Add styles to shrink the table list view */
+  max-height: 50px;  /* Example: reduce the max height */
+  overflow-y: auto;
+}
+
+.numeric-keypad {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the buttons */
+  gap: 10px;
+  border: 2px; /* Add a border */
+  padding: 10px; /* Add some padding */
+  border-radius: 8px; /* Rounded corners */
+  width: 50%; /* Use full width */
+  margin-top: 10px; /* Add a margin at the top */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .keypad-btn {
+    width: 28%; /* Adjust the button width for smaller screens */
+  }
+
+  .numeric-keypad {
+    width: 100%; /* Use full width for smaller screens */
+  }
+}
+
+
+
 
