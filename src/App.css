@@ -516,6 +516,33 @@ input:checked + .slider:before {
   }
 }
 
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.flash-message {
+  animation: flash 2s infinite; /* Adjust the duration (2s) to your liking */
+  font-size: 10px;
+}
 
 
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-section:first-child {
+  margin-right: 20px; /* Adjust this value to your liking */
+}
+
+.card-section:last-child {
+  margin-left: 20px; /* Adjust this value to your liking */
+}
 
