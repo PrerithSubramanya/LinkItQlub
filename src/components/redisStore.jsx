@@ -12,6 +12,7 @@ export const set_redis = async (restaurant_name, card, link) => {
     try {
         const response = await fetch(`${UPSTASH_ENDPOINT}/set/${key}/${value}`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Authorization': `Bearer ${UPSTASH_AUTH_TOKEN}`
             }
