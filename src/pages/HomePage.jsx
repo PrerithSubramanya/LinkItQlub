@@ -160,7 +160,7 @@ const Home = () => {
           <div className="card-layout-3" >
             <MdArrowBack className="back-icon" onClick={() => setSelectedCard(null)} />
             <h2 className="cursor-required">Let's link <span className="table-name" onClick={() => {setSelectedTable(null); setTableLink(null); setRestaurant(null); setSelectedCard(null);}}>@{selectedTable.name}</span> with <span className="item-name" onClick={() => setSelectedCard(null)}>@{selectedCard.name}</span></h2>
-            <button className="link-button" onClick={() => handleLinkClick(restaurant, selectedCard.name ,tableLink)} >Link it</button>
+            <button className="link-button" onClick={() => handleLinkClick(restaurant, selectedCard.hash ,tableLink)} >Link it</button>
           </div>
         ): selectedTable ? ( 
             <div>
