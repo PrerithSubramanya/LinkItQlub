@@ -5,17 +5,16 @@ const UPSTASH_AUTH_TOKEN = import.meta.env.VITE_REDIS_TOKEN;
 export const set_redis = async (restaurant_name, card, link) => {
     console.log(restaurant_name, card, link);
     
-    
     const key = `${restaurant_name}_${card}`;
     const value = encodeURIComponent(link); 
-
+    
     try {
+        console.log('beared token', UPSTASH_AUTH_TOKEN)
         const response = await fetch(`${UPSTASH_ENDPOINT}/set/${key}/${value}`, {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Authorization': `Bearer ${UPSTASH_AUTH_TOKEN}`
-            }
+            },
         });
         
         const data = await response.json();
@@ -24,6 +23,7 @@ export const set_redis = async (restaurant_name, card, link) => {
         console.error('Error:', error);
     }
 };
+
 
 export const get_redis = async (restaurant_name, card) => {
     const key = `${restaurant_name}_${card}`;
