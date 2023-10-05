@@ -26,6 +26,7 @@ export const fetchCardData = async (userId) => {
       console.log("Data fetching error: ", error);
       return [];
     } else {
+      console.log("hash", data)
       return data;
     }
 };
