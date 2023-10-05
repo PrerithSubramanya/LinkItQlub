@@ -27,6 +27,19 @@ const Home = () => {
   const leftCards = cards.slice(0, halfPoint);
   const rightCards = cards.slice(halfPoint);
 
+  const sortTables = (a, b) => {
+    const numA = parseInt(a.name.split('-')[1], 10);
+    const numB = parseInt(b.name.split('-')[1], 10);
+    
+    if (search) {
+      const searchNum = parseInt(search, 10);
+      if (numA === searchNum && numB !== searchNum) return -1;
+      if (numB === searchNum && numA !== searchNum) return 1;
+    }
+    
+    return numA - numB;
+  };
+
 
   useEffect(() => {
     const savedState = sessionStorage.getItem("toggleState");
@@ -46,11 +59,12 @@ const Home = () => {
   useEffect(() => {
     const getTables = async () => {
       const data = await fetchTableData(user?.id);
-      const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+      const sortedData = data.sort(sortTables);
       setTables(sortedData);
     };
     getTables();
-  }, [user]);
+  }, [user, search]);
+
 
   useEffect(() => {
     const getCards = async () => {
@@ -191,13 +205,9 @@ const Home = () => {
             <ul className={`table-list ${searchActive ? "active" : ""} ${showKeypad ? "shrink" : ""}`}>
             {tables
               .filter(table => table.name.toLowerCase().includes(search.toLowerCase()))
-              .sort((a, b) => {
-              if(a.name === `table_${search}`) return -1; // if a is an exact match, it should come first
-              if(b.name === `table_${search}`) return 1;  // if b is an exact match, it should come first
-              return a.name.localeCompare(b.name); // otherwise, sort in ascending order based on table names
-              })
+              .sort(sortTables)
               .map((table, index) => (
-              <li key={table.id} style={{ '--i': index + 1 }} onClick={() => handleTableClick(table)}>{table.name}</li>  
+                <li key={table.id} style={{ '--i': index + 1 }} onClick={() => handleTableClick(table)}>{table.name}</li>  
               ))
             }
             {tables.length === 0 && 
