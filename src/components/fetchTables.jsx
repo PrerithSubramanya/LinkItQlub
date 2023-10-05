@@ -16,3 +16,16 @@ export const fetchTableData = async (userId) => {
     return data;
   }
 };
+
+
+export const fetchCardData = async (userId) => {
+    let {data, error } = await supabase
+    .rpc('get_cards_for_user', {user_id : userId});
+
+    if (error) {
+      console.log("Data fetching error: ", error);
+      return [];
+    } else {
+      return data;
+    }
+};

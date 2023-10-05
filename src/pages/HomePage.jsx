@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { MdExitToApp , MdArrowBack, MdClose} from 'react-icons/md';
-import { fetchTableData } from "../components/fetchTables";
+import { fetchTableData, fetchCardData } from "../components/fetchTables";
 import not_found from "../assets/table_not_found.png"
 import check from "../assets/green_check.png"
 import {set_redis} from "../components/redisStore";
@@ -20,6 +20,12 @@ const Home = () => {
   const [tableLink, setTableLink] = useState(null);
   const [linkSuccessful, setLinkSuccessful] = useState(false);
   const [showKeypad, setShowKeypad] = useState(false);
+  const [cards, setCards] = useState([]);
+
+  const maxCards = 8;
+  const halfPoint = Math.ceil(cards.length / 2);
+  const leftCards = cards.slice(0, halfPoint);
+  const rightCards = cards.slice(halfPoint);
 
 
   useEffect(() => {
@@ -44,6 +50,14 @@ const Home = () => {
       setTables(sortedData);
     };
     getTables();
+  }, [user]);
+
+  useEffect(() => {
+    const getCards = async () => {
+      const data = await fetchCardData(user?.id);
+      setCards(data);
+    };
+    getCards();
   }, [user]);
 
   const handleLogout = async (e) => {
@@ -116,10 +130,12 @@ const Home = () => {
                 Welcome back, <span className="user-email">{user?.email || "User"}</span>!
         </div>
         <div className={`search-card ${isLeaving ? "leaving" : ""}`}>
+        {(!selectedTable && !selectedCard) && (
         <label className="switch">
           <input type="checkbox" onChange={() => setShowKeypad(!showKeypad)} />
           <span className="slider"></span>
         </label>
+        )}
         {linkSuccessful ? (
           <div className="link-completed-card">
             <MdClose className="close-icon" onClick={handleCloseLinkSuccess} />
@@ -137,19 +153,31 @@ const Home = () => {
               <MdArrowBack className="back-icon" onClick={() => {setSelectedTable(null); setTableLink(null); setRestaurant(null);}} />
               <h2 className="cursor-required">Let's link <span className="table-name" onClick={() => setSelectedTable(null)}> @{selectedTable.name}</span> with</h2>
               <div className="item-container">
-              <div className="item-section">
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-A'})}>Card A</div>
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-B'})}>Card B </div>
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-C'})}>Card C</div>
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-D'})}>Card D</div>
+                    <div className="cards-container"> {/* Flex container */}
+                        <div className="card-section"> {/* Left section */}
+                            {leftCards.map((card, index) => (
+                                <div 
+                                    className="item-card" 
+                                    key={index} 
+                                    onClick={() => handleItemClick(card)}
+                                >
+                                    {card.name}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="card-section"> {/* Right section */}
+                            {rightCards.map((card, index) => (
+                                <div 
+                                    className="item-card" 
+                                    key={index + halfPoint}  /* Adjusted key to avoid duplicate keys */
+                                    onClick={() => handleItemClick(card)}
+                                >
+                                    {card.name}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-                <div className="item-section">
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-E'})}>Card E</div>
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-F'})}>Card F</div>
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-G'})}>Card G</div>
-                  <div className="item-card"  onClick={() => handleItemClick({name: 'Card-H'})}>Card H</div>
-                </div>
-              </div>
             </div>
           ) : (
             <>
