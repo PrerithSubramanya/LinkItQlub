@@ -18,11 +18,12 @@ const Home = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
   const [tableLink, setTableLink] = useState(null);
+  const [table_ttl, setLinkTTL] = useState(null);
   const [linkSuccessful, setLinkSuccessful] = useState(false);
   const [showKeypad, setShowKeypad] = useState(false);
   const [cards, setCards] = useState([]);
 
-  const maxCards = 8;
+  // const maxCards = 8;
   const halfPoint = Math.ceil(cards.length / 2);
   const leftCards = cards.slice(0, halfPoint);
   const rightCards = cards.slice(halfPoint);
@@ -99,6 +100,7 @@ const Home = () => {
       setSelectedTable(table);
       setRestaurant(table.restaurant_name);
       setTableLink(table.link)
+      setLinkTTL(table.link_ttl)
       setIsLeaving(false);
     }, 300);
   };
@@ -112,8 +114,8 @@ const Home = () => {
     
   };
 
-  const handleLinkClick = (rest_name, card, link) => {
-    set_redis(rest_name, card, link);
+  const handleLinkClick = (rest_name, card, link, ttl) => {
+    set_redis(rest_name, card, link, ttl);
     setLinkSuccessful(true);
   };
 
@@ -160,7 +162,7 @@ const Home = () => {
           <div className="card-layout-3" >
             <MdArrowBack className="back-icon" onClick={() => setSelectedCard(null)} />
             <h2 className="cursor-required">Let's link <span className="table-name" onClick={() => {setSelectedTable(null); setTableLink(null); setRestaurant(null); setSelectedCard(null);}}>@{selectedTable.name}</span> with <span className="item-name" onClick={() => setSelectedCard(null)}>@{selectedCard.name}</span></h2>
-            <button className="link-button" onClick={() => handleLinkClick(restaurant, selectedCard.hash ,tableLink)} >Link it</button>
+            <button className="link-button" onClick={() => handleLinkClick(restaurant, selectedCard.hash ,tableLink, table_ttl)} >Link it</button>
           </div>
         ): selectedTable ? ( 
             <div>

@@ -2,15 +2,22 @@ const UPSTASH_ENDPOINT = import.meta.env.VITE_REDIS_URL;
 const UPSTASH_AUTH_TOKEN = import.meta.env.VITE_REDIS_TOKEN;
    
 
-export const set_redis = async (restaurant_name, card, link) => {
+export const set_redis = async (restaurant_name, card, link, ttl) => {
     console.log(restaurant_name, card, link);
     
     const key = `${restaurant_name}_${card}`;
     const value = encodeURIComponent(link); 
     
     try {
-        console.log('beared token', UPSTASH_AUTH_TOKEN)
-        const response = await fetch(`${UPSTASH_ENDPOINT}/set/${key}/${value}`, {
+        console.log('beared token', UPSTASH_AUTH_TOKEN);
+
+        let url = `${UPSTASH_ENDPOINT}/set/${key}/${value}`;
+        // Add TTL to URL if restaurant name is "XOPP"
+        if (restaurant_name === "XOPP") {
+            url += `/EX/${ttl}`;
+        }
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${UPSTASH_AUTH_TOKEN}`

@@ -26,6 +26,8 @@ async def redirect_to_link(restaurantName: str, cardName: str):
         logging.info(f"https://{link.decode('utf-8')}")
         # If the key exists, redirect to the link
         return RedirectResponse(url=f"https://{link.decode('utf-8')}")
+    elif restaurantName == "XOPP" and link is None:
+        return RedirectResponse(url="https://xopp.com.au/")
     else:
         # If the key doesn't exist, return an error
         raise HTTPException(status_code=404, detail="Link not found")
