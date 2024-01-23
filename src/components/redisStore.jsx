@@ -25,7 +25,7 @@ export const set_redis = async (restaurant_name, card, link, ttl) => {
         });
         
         const data = await response.json();
-        console.log(data);
+        console.log("Succesfully set the key", key ,data);
     } catch (error) {
         console.error('Error:', error);
     }

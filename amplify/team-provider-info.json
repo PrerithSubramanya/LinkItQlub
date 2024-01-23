@@ -18,7 +18,7 @@
           "redisPort": "44157",
           "redisPassword": "bbe5834f005041aaa50f5dd7223d6589",
           "deploymentBucketName": "amplify-cardlinker-dev-154519-deployment",
-          "s3Key": "amplify-builds/cardlinker0e495e87-36546e2b6a73772f6a72-build.zip"
+          "s3Key": "amplify-builds/cardlinker0e495e87-4d773270566a44384c30-build.zip"
         }
       },
       "api": {
